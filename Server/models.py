@@ -1,32 +1,20 @@
-# db.py
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
+# models.py
+from sqlalchemy import Column, Integer, String, Text, DateTime, func
+from db import Base
 
-# Load environment variables from .env file
-load_dotenv()
+class User(Base):
+    __tablename__ = "users"
 
-# Get Neon connection string from .env
-DATABASE_URL = os.getenv("DATABASE_URL")
+    id = Column(Integer, primary_key=True, index=True)
+    firebase_uid = Column(String, unique=True, index=True, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    role = Column(String, default="user")
 
-# Create SQLAlchemy engine
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"sslmode": "require"},
-    echo=True  # Log SQL queries to console (disable in prod)
-)
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
 
-# Create session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create base class for models
-Base = declarative_base()
-
-# Dependency for routes
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+    id = Column(Integer, primary_key=True, index=True)
+    sender_uid = Column(String, nullable=False)
+    message = Column(Text, nullable=False)
+    response = Column(Text, nullable=True)
+    timestamp = Column(DateTime(timezone=True), server_default=func.now())
