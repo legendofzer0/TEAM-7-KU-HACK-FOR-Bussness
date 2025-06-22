@@ -29,7 +29,7 @@ export default function Sidebar() {
           onClick={() => navigate(item.path)}
         >
           <img src={item.icon} alt={item.label} className="sidebar-icon" />
-          <span className="sidebar-label">{item.label}</span>
+          <div className="tooltip">{item.label}</div>
         </div>
       ))}
     </div>

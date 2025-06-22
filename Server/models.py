@@ -34,3 +34,11 @@ class ChatMessage(Base):
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
 
     chat_record = relationship("ChatRecord", back_populates="messages")
+
+class SensorEvent(Base):
+    __tablename__ = "sensor_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    sensor_type = Column(String, nullable=False)
+    value = Column(String, nullable=False)
+    recorded_at = Column(DateTime(timezone=True), server_default=func.now())

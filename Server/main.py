@@ -6,6 +6,8 @@ from models import Base
 
 from Chat.routes import router as chat_router
 from Users.routes import router as users_router
+from sensors.SenserEvent import router as SenserEvent
+
 app = FastAPI(docs_url="/docs", redoc_url="/redoc")
 
 
@@ -21,3 +23,4 @@ app.add_middleware(
 app.include_router(chat_router)
 app.include_router(users_router)
 
+app.include_router(SenserEvent)
