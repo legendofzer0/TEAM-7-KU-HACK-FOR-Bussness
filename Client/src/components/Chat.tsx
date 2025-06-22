@@ -1,28 +1,50 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { getAuth } from "firebase/auth";
+import axios from "axios";
 import toast from "react-hot-toast";
 import "../css/Chat.css";
+import Background from "../assets/background.gif";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async () => {
     if (!message.trim()) {
-      toast.error("Type something...");
+      toast.error("Please enter a message");
       return;
     }
 
     setLoading(true);
     try {
-      // Simulate bot reply
-      const reply = `${message}`;
-      await new Promise((res) => setTimeout(res, 800));
-      setResponse(reply);
-      setMessage(""); // Clear after send
-    } catch (err) {
-      toast.error("Error sending message");
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
+        toast.error("Not authenticated");
+        setLoading(false);
+        return;
+      }
+
+      const token = await user.getIdToken();
+
+      const { data } = await axios.post(
+        "http://localhost:8000/chat/",
+        { message },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+    } catch (error: any) {
+      console.error("Error:", error);
+      toast.error(
+        error?.response?.data?.detail || "Failed to get response from JARVIS"
+      );
     } finally {
       setLoading(false);
     }
@@ -32,8 +54,8 @@ export default function Chat() {
     const el = textareaRef.current;
     if (el) {
       el.style.height = "auto";
-      const scrollHeight = el.scrollHeight;
       const maxHeight = window.innerHeight * 0.5;
+      const scrollHeight = el.scrollHeight;
       el.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
       el.style.overflowY = scrollHeight > maxHeight ? "auto" : "hidden";
     }
@@ -41,11 +63,12 @@ export default function Chat() {
 
   return (
     <div className="chat-wrapper">
-      <div className="chat-window">
-        <h2>JARVIS</h2>
-        {response && <div className="chat-response">{response}</div>}
+      <div className="chat-window center">
+        <h1>JARVIS</h1>
       </div>
-
+      <span>
+        <img src={Background} className="background_img"/>
+      </span>
       <div className="chat-input-container">
         <textarea
           ref={textareaRef}
@@ -54,6 +77,12 @@ export default function Chat() {
           placeholder="Send a message..."
           className="chat-textarea"
           rows={1}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit();
+            }
+          }}
         />
         <button
           onClick={handleSubmit}

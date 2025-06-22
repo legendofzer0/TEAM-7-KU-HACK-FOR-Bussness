@@ -1,18 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import "../css/sidebar.css";
 
+import UserIcon from "../assets/User.png";
+import NewsIcon from "../assets/News.png";
+import ContactIcon from "../assets/Contact.png";
+
 interface NavItem {
   label: string;
   path: string;
-  icon: string; // relative path to asset
+  icon: string;
 }
 
 const navItems: NavItem[] = [
-  { label: "User Profile", path: "/profile", icon: "../assets/profile.png" },
-  { label: "Chat History", path: "/history", icon: "../assets/chat.png" },
-  { label: "News", path: "/news", icon: "../assets/news.png" },
-  { label: "Photo Upload", path: "/upload", icon: "../assets/upload.png" },
-  { label: "Contact Us", path: "/contact", icon: "../assets/contact.png" },
+  { label: "User Profile", path: "/profile", icon: UserIcon },
+  { label: "News", path: "/news", icon: NewsIcon },
+  { label: "Contact Us", path: "/contact", icon: ContactIcon },
 ];
 
 export default function Sidebar() {
@@ -27,7 +29,7 @@ export default function Sidebar() {
           onClick={() => navigate(item.path)}
         >
           <img src={item.icon} alt={item.label} className="sidebar-icon" />
-          <span>{item.label}</span>
+          <span className="sidebar-label">{item.label}</span>
         </div>
       ))}
     </div>

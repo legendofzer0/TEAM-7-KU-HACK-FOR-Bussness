@@ -1,14 +1,56 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List, Optional
+from datetime import datetime
+from pydantic import BaseModel
+import uuid
+
 from auth import verify_firebase_token
 from db import get_db
-from models import User, ChatMessage
-from schemas import ChatRequest
+from models import User, ChatMessage, ChatRecord
 
 router = APIRouter(
-    prefix="/chat",
+        prefix="/chat",
     tags=["Chat"]
 )
+
+# ──────────────────────
+# 📦 Schemas
+# ──────────────────────
+
+class ChatRequest(BaseModel):
+    message: str
+    chat_record_id: Optional[str] = None
+
+class ChatMessageResponse(BaseModel):
+    id: int
+    sender_uid: str
+    message: str
+    response: Optional[str]
+    timestamp: datetime
+
+    class Config:
+        orm_mode = True
+
+class ChatRecordResponse(BaseModel):
+    id: str
+    name: str
+    messages: List[ChatMessageResponse]
+
+    class Config:
+        orm_mode = True
+
+# ──────────────────────
+# 🧠 Utilities
+# ──────────────────────
+
+def truncate_to_100_words(text: str) -> str:
+    words = text.strip().split()
+    return " ".join(words[:100])
+
+# ──────────────────────
+# 📨 POST /chat/
+# ──────────────────────
 
 @router.post("/")
 def chat(
@@ -16,10 +58,11 @@ def chat(
     user=Depends(verify_firebase_token),
     db: Session = Depends(get_db)
 ):
+    print(f"Received chat_record_id: {payload}")
     uid = user["uid"]
     email = user["email"]
-
-    # Step 1: Ensure user exists (create if missing)
+    print(payload)
+    # Ensure user exists
     db_user = db.query(User).filter_by(firebase_uid=uid).first()
     if not db_user:
         db_user = User(firebase_uid=uid, email=email)
@@ -27,26 +70,61 @@ def chat(
         db.commit()
         db.refresh(db_user)
 
-    # Step 2: Save user message
-    user_msg = ChatMessage(
-        sender_uid=uid,
-        message=payload.message,
-        response=None
-    )
-    db.add(user_msg)
+    # Get or create ChatRecord
+    if payload.chat_record_id:
+        chat_record = db.query(ChatRecord).filter_by(id=payload.chat_record_id, user_id=db_user.id).first()
+        if not chat_record:
+            raise HTTPException(status_code=404, detail="Chat record not found.")
+    else:
+        record_id = str(uuid.uuid4())
+        chat_record = ChatRecord(
+            id=record_id,
+            user_id=db_user.id,
+            name=truncate_to_100_words(payload.message)
+        )
+        db.add(chat_record)
+        db.commit()
+        db.refresh(chat_record)
 
-    # Step 3: Generate bot response
+    # Generate dummy bot response
     bot_reply = f"This is a bot response to: {payload.message}"
 
-    # Step 4: Save bot response
-    bot_msg = ChatMessage(
+    # Save message
+    chat_msg = ChatMessage(
+        chat_record_id=chat_record.id,
         sender_uid=uid,
         message=payload.message,
         response=bot_reply
     )
-    db.add(bot_msg)
-
-    # Commit both messages together
+    db.add(chat_msg)
     db.commit()
 
-    return {"response": bot_reply}
+    return {
+        "response": bot_reply,
+        "chat_record_id": chat_record.id
+    }
+
+# ──────────────────────
+# 📥 GET /chat/{chat_record_id}
+# ──────────────────────
+
+@router.get("/{chat_record_id}", response_model=ChatRecordResponse)
+def get_chat_record(
+    chat_record_id: str,
+    user=Depends(verify_firebase_token),
+    db: Session = Depends(get_db)
+):
+    uid = user["uid"]
+    db_user = db.query(User).filter_by(firebase_uid=uid).first()
+
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found.")
+
+    chat_record = db.query(ChatRecord).filter_by(id=chat_record_id, user_id=db_user.id).first()
+
+    if not chat_record:
+        raise HTTPException(status_code=404, detail="Chat record not found.")
+
+    _ = chat_record.messages  # force load if lazy
+
+    return chat_record

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "../css/NotificationButton.css";
 
-const bellIcon = "/assets/bell.png";
-const bellActiveIcon = "/assets/bell-active.png";
+import bellIcon from  "../assets/Notification.png"
+import bellActiveIcon from "../assets/Notification_active.png";
 
 interface Notification {
   id: string;

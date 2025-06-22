@@ -14,13 +14,14 @@
 .slider {
   position: absolute;
   cursor: pointer;
-  background-color: #ccc;
+  background-color: #f44336; /* Red when off */
   border-radius: 34px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   transition: 0.4s;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
 .slider:before {
@@ -36,9 +37,26 @@
 }
 
 input:checked + .slider {
-  background-color: #4caf50;
+  background-color: #4caf50; /* Green when on */
 }
 
 input:checked + .slider:before {
   transform: translateX(24px);
+}
+
+.ApplicationBack {
+  border: 2px solid #ccc;
+  width: 15vw;
+  height: auto;
+  padding: 10px;
+  transition: box-shadow 0.3s ease;
+  border-radius: 10px;
+  transform: translateY(50%);
+  background-color: #02102b;
+  color: #82b3d8
+}
+
+/* Hover glow effect */
+.ApplicationBack:hover {
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.6); /* subtle green glow */
 }

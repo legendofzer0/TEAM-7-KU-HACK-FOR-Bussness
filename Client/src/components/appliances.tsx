@@ -53,7 +53,7 @@ export default function Appliances() {
   };
 
   return (
-    <div style={{ padding: "1rem" }}>
+    <div className="ApplicationBack" style={{ padding: "1rem" }}>
       <h2>Appliances</h2>
 
       {!loaded ? (

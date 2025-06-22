@@ -5,7 +5,7 @@ export default function App() {
 
   return (
     <div className="grid place-items-center h-dvh bg-zinc-900/15">
-      <Button onClick={notify}>Notify !</Button>
+      <input type='button' onClick={notify}>Notify !</input>
       <ToastContainer />
     </div>
   );
