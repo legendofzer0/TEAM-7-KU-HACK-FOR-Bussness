@@ -1,0 +1,346 @@
+[
+    {
+        "role": "user",
+        "content": "can u turn on the fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan jarvis"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan "
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "can u turn on the led please"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "hi bro"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "can you turn on the led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "hi "
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "can you turn on led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on led brother"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "hey bro turn off led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "hey jarvis"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "can u turn off led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "bro can u turn on the fan plz"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off it"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn off the fan bro"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "can u turh off fan plz"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan bro"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "hey jarviss"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello!"
+    },
+    {
+        "role": "user",
+        "content": "batti on gaar"
+    },
+    {
+        "role": "assistant",
+        "content": "I think you meant \"turn on the light\". The LED is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "yes"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "no it is not"
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize for the mistake. The LED is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on light"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "2"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm not sure what you mean by \"2\". Could you please clarify or ask a question?"
+    },
+    {
+        "role": "user",
+        "content": "turn on led 2 "
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize, but there is only one LED, and it is already turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off led "
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "1"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm not sure what you mean by \"1\". Could you please clarify or ask a question?"
+    },
+    {
+        "role": "user",
+        "content": "1 and 2"
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize, but I don't understand what you mean by \"1 and 2\". There is only one LED, and it is currently turned OFF. If you want to turn it ON, you can ask me to do so."
+    },
+    {
+        "role": "user",
+        "content": "1"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm not sure what you mean by \"1\". Could you please clarify or ask a question?"
+    },
+    {
+        "role": "user",
+        "content": "turn off led 1 and 2 "
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize, but there is only one LED, and it is already turned OFF. There is no LED 1 or LED 2 to turn off."
+    },
+    {
+        "role": "user",
+        "content": "2"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm not sure what you mean by \"2\". Could you please clarify or ask a question?"
+    },
+    {
+        "role": "user",
+        "content": "turn off led 2"
+    },
+    {
+        "role": "assistant",
+        "content": "I apologize, but there is only one LED, and it is already turned OFF. There is no LED 2 to turn off."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "Smoke detected"
+    },
+    {
+        "role": "assistant",
+        "content": "Alert! Smoke has been detected. Please take necessary precautions and ensure your safety."
+    }
+]
