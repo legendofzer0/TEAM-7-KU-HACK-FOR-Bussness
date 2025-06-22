@@ -3,60 +3,50 @@
   display: inline-block;
   width: 50px;
   height: 26px;
+  z-index: 10; /* ✅ ensure it stays on top */
 }
 
 .switch input {
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11; /* ✅ make sure input is clickable */
+  cursor: pointer;
 }
 
 .slider {
   position: absolute;
-  cursor: pointer;
-  background-color: #f44336; /* Red when off */
-  border-radius: 34px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #f44336; /* red when off */
+  border-radius: 34px;
   transition: 0.4s;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 10; /* below the input but above background */
 }
 
 .slider:before {
   content: "";
+  position: absolute;
   height: 20px;
   width: 20px;
-  border-radius: 50%;
-  background-color: white;
-  position: absolute;
-  bottom: 3px;
   left: 4px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
   transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #4caf50; /* Green when on */
+  background-color: #4caf50; /* green when on */
 }
 
 input:checked + .slider:before {
   transform: translateX(24px);
-}
-
-.ApplicationBack {
-  border: 2px solid #ccc;
-  width: 15vw;
-  height: auto;
-  padding: 10px;
-  transition: box-shadow 0.3s ease;
-  border-radius: 10px;
-  transform: translateY(50%);
-  background-color: #02102b;
-  color: #82b3d8
-}
-
-/* Hover glow effect */
-.ApplicationBack:hover {
-  box-shadow: 0 0 12px rgba(76, 175, 80, 0.6); /* subtle green glow */
 }
