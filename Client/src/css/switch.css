@@ -50,3 +50,8 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(24px);
 }
+
+.ApplicationBack{
+  border: 2px solid white;
+  width: 15vw;
+}

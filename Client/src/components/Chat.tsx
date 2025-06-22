@@ -4,13 +4,19 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import "../css/Chat.css";
 import Background from "../assets/background.gif";
+import ChatTemplate from "./ChatTemplate";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
+  const [request, setRequest] = useState("");
+  const [response, setResponse] = useState("");
+
   const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [chating,setChating] = useState(false);
 
   const handleSubmit = async () => {
+    console.log("Submits")
     if (!message.trim()) {
       toast.error("Please enter a message");
       return;
@@ -18,6 +24,7 @@ export default function Chat() {
 
     setLoading(true);
     try {
+      setChating(true);
       const auth = getAuth();
       const user = auth.currentUser;
 
@@ -39,7 +46,9 @@ export default function Chat() {
           },
         }
       );
-
+      setResponse(data.response);
+      setRequest(message);
+      setMessage("");
     } catch (error: any) {
       console.error("Error:", error);
       toast.error(
@@ -66,9 +75,11 @@ export default function Chat() {
       <div className="chat-window center">
         <h1>JARVIS</h1>
       </div>
-      <span>
-        <img src={Background} className="background_img"/>
-      </span>
+      <div> { !chating?
+        <img src={Background} className="background_img"/>:
+          <ChatTemplate request={request} response={response}/>
+        }
+      </div>
       <div className="chat-input-container">
         <textarea
           ref={textareaRef}

@@ -1,3 +1,4 @@
+import "../css/ChatTemplate.css"
 interface ChatTemplateProps {
   request: string;
   response: string;
