@@ -1,6 +1,7 @@
 :root{
     background-color: #190C40;
-    color: #82b3d8
+    color: #82b3d8;
+    /* background: radial-gradient(circle at center, white, blue); */
 }
 
 .center{
