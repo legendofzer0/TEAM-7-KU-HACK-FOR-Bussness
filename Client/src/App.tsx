@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { auth } from "./firebase";
+import LoginSignup from "./components/LoginSignUp";
+import Mainpage from "./mainpage";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface ChatMessage {
+  from: "user" | "bot";
+  text: string;
 }
 
-export default App
+function App() {
+  const [token, setToken] = useState<string | null>(null);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onIdTokenChanged(async (user) => {
+      if (user) {
+        const t = await user.getIdToken();
+        setToken(t);
+      } else {
+        setToken(null);
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  const sendMessage = async () => {
+    if (!input.trim() || !token) return;
+
+    const userMsg = input.trim();
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/chat/",
+        { message: userMsg },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setMessages((prev) => [
+        ...prev,
+        { from: "user", text: userMsg },
+        { from: "bot", text: res.data.response },
+      ]);
+      setInput("");
+    } catch (err: any) {
+      alert(err.response?.data?.detail || "Chat failed.");
+    }
+  };
+
+  return (
+      <>
+      <div>
+          {!token ? (
+            <LoginSignup onAuth={setToken} />
+          ) : (
+            <>
+              <Mainpage />
+            </>)
+          }
+        </div>
+    </>
+  );
+}
+
+export default App;

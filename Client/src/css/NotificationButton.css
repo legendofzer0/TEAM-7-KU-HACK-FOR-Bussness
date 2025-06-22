@@ -1,0 +1,48 @@
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.notification-modal {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  color: #333;
+  width: 250px;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.notification-modal h4 {
+  margin-bottom: 0.5rem;
+}
+
+.notification-modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.notification-modal li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.notification-modal li.unread {
+  font-weight: bold;
+}
+
+.notification-modal li.read {
+  color: #666;
+}
