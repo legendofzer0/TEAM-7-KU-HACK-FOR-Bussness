@@ -11,13 +11,17 @@
 .modal-content {
   background: white;
   border-radius: 10px;
-  padding: 30px 40px;
-  max-width: 450px;
+  padding: 25px 30px;
+  max-width: 360px;         /* smaller width */
   width: 90%;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  max-height: 80vh;         /* responsive max height */
+  height: auto;             /* content-based height */
+  overflow-y: auto;         /* scroll if needed */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   position: relative;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .modal-content h2 {
   margin-top: 0;
@@ -41,8 +45,13 @@
   color: #000;
 }
 
+.contact-form{
+  margin: 0px;
+}
+
 .contact-form label {
   display: block;
+  margin-top: 0px;
   margin-bottom: 16px;
   font-weight: 600;
   color: #333;
