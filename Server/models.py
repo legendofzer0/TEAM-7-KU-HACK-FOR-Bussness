@@ -42,3 +42,11 @@ class SensorEvent(Base):
     sensor_type = Column(String, nullable=False)
     value = Column(String, nullable=False)
     recorded_at = Column(DateTime(timezone=True), server_default=func.now())
+
+class ContactUs(Base):
+    __tablename__ = "contact_us"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=False, index=True, nullable=False)
+    message = Column(Text, nullable=False)
+    

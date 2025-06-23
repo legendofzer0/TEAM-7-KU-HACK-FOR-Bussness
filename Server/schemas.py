@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from pydantic import EmailStr, Field
 
 
 class ChatRequest(BaseModel):
@@ -17,6 +18,20 @@ class SensorEventOut(BaseModel):
     sensor_type: str
     value: str
     recorded_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class ContactUsBase(BaseModel):
+    name: str = Field(..., example="Jenish Maharjan")
+    email: EmailStr = Field(..., example="jenish@example.com")
+    message: str = Field(..., example="Hello, I have a question...")
+
+class ContactUsCreate(ContactUsBase):
+    pass
+
+class ContactUsResponse(ContactUsBase):
+    id: int
 
     class Config:
         orm_mode = True

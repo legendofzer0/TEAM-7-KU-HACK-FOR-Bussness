@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../css/ContactUsModal.css";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface ContactUsModalProps {
   onClose: () => void;
@@ -13,30 +15,37 @@ export default function ContactUsModal({ onClose }: ContactUsModalProps) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setError("Please fill in all fields.");
-      return;
-    }
+  if (!name.trim() || !email.trim() || !message.trim()) {
+    setError("Please fill in all fields.");
+    return;
+  }
 
-    setSubmitting(true);
-    setError(null);
+  setSubmitting(true);
+  setError(null);
 
-    try {
-      await new Promise((r) => setTimeout(r, 1000));
+  try {
+    const payload = {
+      name,
+      email,
+      message,
+    };
 
-      setSuccess(true);
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch {
-      setError("Failed to send message. Please try again later.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    await axios.post("http://127.0.0.1:8000/contact/", payload);
+    toast.success("Message sent successfully!");
+    setSuccess(true);
+    setName("");
+    setEmail("");
+    setMessage("");
+  } catch (err) {
+    toast.error("Failed to send message. Please try again later.");
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   return (
     <div className="modal-overlay" onClick={onClose}>
