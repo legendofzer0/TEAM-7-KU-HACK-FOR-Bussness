@@ -6,6 +6,7 @@ import ProfileModal from "./Profile";
 import ContactUsModal from "./ContactUs";
 
 import "../css/sidebar.css";
+import NewsModal from "./news";
 
 interface NavItem {
   label: string;
@@ -21,6 +22,8 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showContactModel,setShowContactModel] = useState(false);
+  const [showNewsModel,setShowNewsModel] = useState(false);
+
 
   const handleItemClick = (label: string) => {
     if (label === "User Profile") {
@@ -28,6 +31,9 @@ export default function Sidebar() {
     }
     if(label === "Contact Us"){
       setShowContactModel(true);
+    }
+    if(label === "News"){
+      setShowNewsModel(true);
     }
   };
 
@@ -52,6 +58,11 @@ export default function Sidebar() {
       {
         showContactModel && (
           <ContactUsModal onClose={()=>setShowContactModel(false)} />
+        )
+      }
+      {
+        showNewsModel && (
+          <NewsModal onClose={()=>setShowNewsModel(false)} />
         )
       }
     </>

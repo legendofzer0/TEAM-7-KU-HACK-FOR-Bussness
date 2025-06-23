@@ -1,0 +1,77 @@
+/* NewsModal.css */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.75rem;
+}
+
+.modal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.modal ul li {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.modal ul li a {
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+.modal ul li a:hover,
+.modal ul li a:focus {
+  text-decoration: underline;
+}
+
+.modal ul li small {
+  color: #555;
+  font-size: 0.875rem;
+}
+
+.modal button[aria-label="Close modal"] {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.modal button[aria-label="Close modal"]:hover {
+  color: #e53935; /* red on hover */
+}

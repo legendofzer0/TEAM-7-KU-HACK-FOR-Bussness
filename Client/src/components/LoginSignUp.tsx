@@ -5,6 +5,8 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
+import "../css/LoginSignup.css";
+
 
 interface Props {
   onAuth: (token: string) => void;

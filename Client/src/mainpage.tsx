@@ -2,6 +2,7 @@ import Appliances from "./components/appliances";
 import Chat from "./components/Chat";
 import NotificationButton from "./components/Notification";
 import Sidebar from "./components/Sidebar";
+import VoiceTest from "./components/VoiceTest";
 
 export default function Mainpage (){
     return(
@@ -10,6 +11,8 @@ export default function Mainpage (){
             <Appliances />
             <Sidebar/>
             <Chat/>
+            {/* <VoiceTest/> */}
+
         </>
     )
 }
