@@ -454,5 +454,109 @@
     {
         "role": "assistant",
         "content": "I can provide you with the latest news and updates from the internet. However, I need more specific information on what you're interested in. Would you like to know the latest news on a particular topic, such as technology, sports, or entertainment?"
+    },
+    {
+        "role": "user",
+        "content": "turn on led"
+    },
+    {
+        "role": "assistant",
+        "content": "The LED is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "office light off"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is already turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn on meeting light"
+    },
+    {
+        "role": "assistant",
+        "content": "The meeting light is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off meeting light"
+    },
+    {
+        "role": "assistant",
+        "content": "The meeting light is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off office light"
+    },
+    {
+        "role": "assistant",
+        "content": "The office light is now turned OFF."
+    },
+    {
+        "role": "user",
+        "content": "turn on fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned ON."
+    },
+    {
+        "role": "user",
+        "content": "turn off fan"
+    },
+    {
+        "role": "assistant",
+        "content": "The fan is now turned OFF."
     }
 ]
