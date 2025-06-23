@@ -454,5 +454,13 @@
     {
         "role": "assistant",
         "content": "I can provide you with the latest news and updates from the internet. However, I need more specific information on what you're interested in. Would you like to know the latest news on a particular topic, such as technology, sports, or entertainment?"
+    },
+    {
+        "role": "user",
+        "content": "hello hello how are you today"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello! I'm doing well, thank you for asking! I'm a large language model, I don't have feelings or emotions like humans do, but I'm functioning properly and ready to assist you with any questions or tasks you may have."
     }
 ]

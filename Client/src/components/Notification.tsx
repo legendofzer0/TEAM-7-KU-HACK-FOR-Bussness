@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
-import { db } from "../firebase"; // adjust path if needed
+import { db } from "../firebase"; // Adjust this path if needed
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import "../css/NotificationButton.css";
 import bellIcon from "../assets/Notification.png";
 import bellActiveIcon from "../assets/Notification_active.png";
+
+import { get, child } from "firebase/database";
 
 interface Notification {
   id: string;
@@ -17,38 +20,47 @@ export default function NotificationButton() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    const sensorRef = ref(db, "Sensors");
+useEffect(() => {
+  const sensorRef = ref(db, "Sensors");
 
-    const unsubscribe = onValue(sensorRef, (snapshot) => {
-      const data = snapshot.val();
-      if (!data) return;
+  const unsubscribe = onValue(sensorRef, (snapshot) => {
+    const data = snapshot.val();
+    if (!data) return;
 
-      Object.entries(data).forEach(([sensorType, value]) => {
-        const newMessage = `${sensorType} sensor value changed to ${value}`;
+    // Filter out messages that already exist in notifications
+    const newMessages = Object.entries(data)
+      .map(([sensorType, value]) => `${sensorType} sensor value changed to ${value}`)
+      .filter((msg) => !notifications.some((n) => n.message === msg));
 
-        const newNotification: Notification = {
-          id: Date.now().toString(),
-          message: newMessage,
-          read: false,
-        };
+    if (newMessages.length === 0) return; // no new notifications
 
-        // Avoid duplicates
-        setNotifications((prev) => {
-          if (prev.some((n) => n.message === newMessage)) return prev;
-          return [newNotification, ...prev];
-        });
-
-        // Send to backend
-        axios.post("http://localhost:8000/sensor-event", {
-          sensor_type: sensorType,
-          value: value.toString(),
-        }).catch(console.error);
-      });
+    // Update notifications state once with all new messages
+    setNotifications((prev) => {
+      const newNotifications = newMessages.map((msg) => ({
+        id: Date.now().toString() + Math.random(), // unique id
+        message: msg,
+        read: false,
+      }));
+      return [...newNotifications, ...prev];
     });
 
-    return () => unsubscribe(); // cleanup listener
-  }, []);
+    // Show one combined critical toast
+    const combinedMessage = newMessages.join("\n");
+    toast.error(combinedMessage);
+
+    // Send each event to backend
+    newMessages.forEach((msg) => {
+      const [sensorType, , , , value] = msg.split(" ");
+      axios.post("http://localhost:8000/sensor-event", {
+        sensor_type: sensorType,
+        value: value,
+      }).catch(console.error);
+    });
+  });
+
+  return () => unsubscribe();
+}, [notifications]); // add notifications to dependency to access latest in filter
+
 
   const unread = notifications.some((n) => !n.read);
 
@@ -60,6 +72,7 @@ export default function NotificationButton() {
     }
     setModalOpen((prev) => !prev);
   };
+  console.log("NotificationButton component loaded");
 
   return (
     <div className="notification-wrapper">
