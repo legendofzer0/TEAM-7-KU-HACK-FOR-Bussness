@@ -35,7 +35,16 @@ Hardware: Arduino uno, Led, Fan, Relay, Smoke Sensor, L298 Moduel, IR, Servo
 Database: Firebase
 
 5.🚀 Working Principle
+                                                              
 
+                                                +------------+           (open connection)            +--------------+
+                                                |  Frontend  | <------------------------------------> | FastAPI WS   |
+                                                |  (Browser) |     ws://localhost:8000/ws             | Backend      |
+                                                +------------+                                        +--------------+
+                                                       ↓                                                      ↑
+                                             Send Message: user_message("")                         Receives + Processes
+                                                       ↓                                                      ↑
+                                             socket.send(AI.RESPOND())              →                 Send back
 
 6. 🌱 Future Scope / Improvements
    - Improve on The ai hardware connection
