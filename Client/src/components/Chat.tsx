@@ -24,7 +24,6 @@ export default function Chat() {
 
     setLoading(true);
     try {
-      setChating(true);
       const auth = getAuth();
       const user = auth.currentUser;
 
@@ -46,6 +45,7 @@ export default function Chat() {
           },
         }
       );
+      setChating(true);
       setResponse(data.response);
       setRequest(message);
       setMessage("");
