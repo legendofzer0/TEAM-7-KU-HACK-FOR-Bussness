@@ -6,9 +6,11 @@
   padding: 12px 16px;
   border-radius: 8px;
   margin: 10px 0;
-  max-width: 40%;
+  max-width: 60%; /* Increased to allow longer messages */
+  width: fit-content; /* Allows bubble to size based on content */
   font-family: 'Poppins', sans-serif;
   transform: translate(25vw , -60vh);
+  word-wrap: break-word; /* Ensures long words wrap */
 }
 
 .response {
@@ -17,14 +19,19 @@
   padding: 12px 16px;
   border-radius: 8px;
   margin: 10px 0;
-  max-width: 40%;
+  max-width: 45%; /* Increased max-width for longer content */
+  width: fit-content;
   font-family: 'Roboto Mono', monospace;
+  word-wrap: break-word;
+  transform: translate(35vw , -60vh);
+  /* Optional typing animation:
   white-space: nowrap;
   overflow: hidden;
   border-right: 2px solid #00ffcc;
   animation: typewriter 3s steps(40, end), blinkCursor 0.75s step-end infinite;
-  transform: translate(35vw , -60vh);
+  */
 }
+
 
 @keyframes typewriter {
   from {

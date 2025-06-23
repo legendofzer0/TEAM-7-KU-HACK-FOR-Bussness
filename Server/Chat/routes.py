@@ -5,12 +5,14 @@ from datetime import datetime
 from pydantic import BaseModel
 import uuid
 
+from sensors.Chatbot import ChatBot
+
 from auth import verify_firebase_token
 from db import get_db
 from models import User, ChatMessage, ChatRecord
 
 router = APIRouter(
-        prefix="/chat",
+    prefix="/chat",
     tags=["Chat"]
 )
 
@@ -58,10 +60,9 @@ def chat(
     user=Depends(verify_firebase_token),
     db: Session = Depends(get_db)
 ):
-    print(f"Received chat_record_id: {payload}")
     uid = user["uid"]
-    email = user["email"]
-    print(payload)
+    email = user.get("email", "")
+
     # Ensure user exists
     db_user = db.query(User).filter_by(firebase_uid=uid).first()
     if not db_user:
@@ -86,10 +87,10 @@ def chat(
         db.commit()
         db.refresh(chat_record)
 
-    # Generate dummy bot response
-    bot_reply = f"This is a bot response to: {payload.message}"
+    # Call chatbot
+    bot_reply = ChatBot(payload.message)
 
-    # Save message
+    # Save chat message
     chat_msg = ChatMessage(
         chat_record_id=chat_record.id,
         sender_uid=uid,
@@ -98,6 +99,7 @@ def chat(
     )
     db.add(chat_msg)
     db.commit()
+    db.refresh(chat_msg)
 
     return {
         "response": bot_reply,
@@ -115,16 +117,13 @@ def get_chat_record(
     db: Session = Depends(get_db)
 ):
     uid = user["uid"]
-    db_user = db.query(User).filter_by(firebase_uid=uid).first()
 
+    db_user = db.query(User).filter_by(firebase_uid=uid).first()
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found.")
 
     chat_record = db.query(ChatRecord).filter_by(id=chat_record_id, user_id=db_user.id).first()
-
     if not chat_record:
         raise HTTPException(status_code=404, detail="Chat record not found.")
-
-    _ = chat_record.messages  # force load if lazy
 
     return chat_record
